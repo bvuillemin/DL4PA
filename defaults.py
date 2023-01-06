@@ -1,6 +1,6 @@
 """
 Deep Learning Framework
-Version 1.0
+Version 1.5
 Authors: Benoit Vuillemin, Frederic Bertrand
 Licence: AGPL v3
 """
@@ -22,6 +22,8 @@ output_name = "helpdesk"
 input_chunk_size = 50000
 # Size of a chunk for pre-processed data, i.e. number of data that will go to the neural network to store to memory
 output_chunk_size = 500
+# Size of a data batch for training the neural network
+batch_size = 32
 # Number of epoch for the neural network
 epoch_counter = 5
 # States if the input file has two timestamps, i.e. a start and end timestamp
@@ -43,7 +45,7 @@ mode = "offline"
 
 # The steps for offline mode can be all, encode, decode, prepare, train
 offline_steps = ["all"]
-# Get a debug file from the encoding (human readable csv file)
+# Get a debug file from the encoding (human-readable csv file)
 debug = False
 
 # List of encoders
@@ -53,6 +55,6 @@ cov_encoders = []
 # List of editors
 editors = [SosForAll(), EosForAll()]
 # Data preparator
-preparator = SlicerLSTM()
+preparator = NextActivity()
 # Trainer for the neural network
 trainer = LSTMTrainer()

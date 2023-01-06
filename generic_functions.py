@@ -1,6 +1,6 @@
 """
 Deep Learning Framework
-Version 1.0
+Version 1.5
 Authors: Benoit Vuillemin, Frederic Bertrand
 Licence: AGPL v3
 """
@@ -36,7 +36,7 @@ def get_complete_cases(chunk, id_column, first_chunk, last_chunk, previous_case,
     complete_cases = []
     case_ids = []
     chunk_case_counter = 0
-    cases = chunk.groupby([id_column])
+    cases = chunk.groupby(id_column)
     first_case = True
     for case_id, case in cases:
         # Check if it is the last case of the chunk

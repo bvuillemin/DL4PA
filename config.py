@@ -1,6 +1,6 @@
 """
 Deep Learning Framework
-Version 1.0
+Version 1.5
 Authors: Benoit Vuillemin, Frederic Bertrand
 Licence: AGPL v3
 """
@@ -40,6 +40,6 @@ encoders = [DeleteEncoder(0), OneHotEncoder(1, activity=True), TimeDifferenceSin
 # List of editors
 editors = [SosForAll(), EosForAll()]
 # Data preparator
-preparator = SlicerLSTM()
+preparator = NextActivity()
 # Trainer for the neural network
 trainer = LSTMTrainer()

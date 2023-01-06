@@ -1,6 +1,6 @@
 """
 Deep Learning Framework
-Version 1.0
+Version 1.5
 Authors: Benoit Vuillemin, Frederic Bertrand
 Licence: AGPL v3
 """
@@ -27,7 +27,7 @@ def benchmark(filename):
 
     start_time = time.time()
     orchestrator = build_orchestrator(input_path, output_name, input_chunk_size, encoder_manager, editor_manager, dates_ids, double_timestamps)
-    preparator = SlicerLSTM()
+    preparator = NextActivity()
     preparator.build(input_chunk_size, output_chunk_size, batch_size, orchestrator)
     lstm_trainer = LSTMTrainer()
     lstm_trainer.build(preparator, epoch_counter)

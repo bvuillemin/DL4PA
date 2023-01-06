@@ -1,6 +1,6 @@
 """
 Deep Learning Framework
-Version 1.0
+Version 1.5
 Authors: Benoit Vuillemin, Frederic Bertrand
 Licence: AGPL v3
 """
@@ -95,7 +95,31 @@ def load_orchestrator_from_file(output_name):
     return orchestrator
 
 
-def create_decoder(encoder_description, start_input_column_id=None):
+def create_decoder(decoder_class, input_column_names, input_column_ids, output_column_names, output_column_ids, properties):
+    """
+    Creates a decoder from an encoder description
+
+    :param decoder_class: Name of the decoder class
+    :type decoder_class: str
+    :param input_column_names: Names of the input columns
+    :type input_column_names: list
+    :param input_column_ids: Indexes of the input columns
+    :type input_column_ids: list
+    :param output_column_names: Names of the output columns
+    :type output_column_names: list
+    :param output_column_ids: Indexes of the output columns
+    :type output_column_ids: list
+    :param properties: Internal properties of the decoder
+    :type properties: Any
+    :return: Decoder
+    :rtype: Encoder
+    """
+    decoder_class = globals()[decoder_class + "Decoder"]
+    decoder = decoder_class(input_column_names, input_column_ids, output_column_names, output_column_ids, properties)
+    return decoder
+
+
+def create_decoder_from_description(encoder_description, start_input_column_id=None):
     """
     Creates a decoder from an encoder description
 
@@ -106,7 +130,7 @@ def create_decoder(encoder_description, start_input_column_id=None):
     :return: Decoder
     :rtype: Encoder
     """
-    decoder_class = globals()[encoder_description[0][0] + "Decoder"]
+    decoder_class = encoder_description[0][0]
     properties = encoder_description[1]
     output_column_names = encoder_description[2]
     output_column_ids = encoder_description[3]
@@ -115,8 +139,8 @@ def create_decoder(encoder_description, start_input_column_id=None):
         input_column_ids = encoder_description[5]
     else:
         input_column_ids = [start_input_column_id, start_input_column_id + len(input_column_names) - 1]
-    decoder = decoder_class(input_column_names, input_column_ids, output_column_names, output_column_ids,
-                                properties)
+    decoder = create_decoder(decoder_class, input_column_names, input_column_ids, output_column_names,
+                             output_column_ids, properties)
     return decoder
 
 
@@ -131,7 +155,7 @@ def create_all_decoders(orchestrator):
     """
     decoders = []
     for encoder_description in orchestrator.encoder_descriptions:
-        decoders.append(create_decoder(encoder_description))
+        decoders.append(create_decoder_from_description(encoder_description))
     decoder_manager = EncoderManager(decoders)
     return decoder_manager
 

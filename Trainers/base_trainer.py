@@ -1,9 +1,11 @@
 """
 Deep Learning Framework
-Version 1.0
+Version 1.5
 Authors: Benoit Vuillemin, Frederic Bertrand
 Licence: AGPL v3
 """
+from math import ceil
+import numpy as np
 
 
 class Trainer:
@@ -15,7 +17,6 @@ class Trainer:
         super().__init__()
         self.preparator = None
         self.epoch_counter = None
-        self.decoders = []
         self.model = None
 
     def build(self, preparator, epoch_counter):
@@ -44,15 +45,8 @@ class Trainer:
         """
         pass
 
-    def get_prediction(self, input, leftovers):
-        """
-        Gets the prediction of the neural network for an input
+    def load_model(self):
+        pass
 
-        :param input: Input of the neural network
-        :type input: np.ndarray
-        :param leftovers: Leftovers of the input
-        :type leftovers: pd.DataFrame
-        :return: The predicted decoded output of the neural network
-        :rtype: list
-        """
+    def save_model(self):
         pass

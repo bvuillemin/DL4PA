@@ -1,9 +1,9 @@
 """
 Deep Learning Framework
-Version 1.0
+Version 1.5
 Authors: Benoit Vuillemin, Frederic Bertrand
 Licence: AGPL v3
 """
 
 from .base_data_prep import *
-from .suffix_slicer_lstm import *
+from .next_activity import *

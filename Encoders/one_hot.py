@@ -1,6 +1,6 @@
 """
 Deep Learning Framework
-Version 1.0
+Version 1.5
 Authors: Benoit Vuillemin, Frederic Bertrand
 Licence: AGPL v3
 """
@@ -61,6 +61,23 @@ class OneHotEncoder(SingleColumnEncoder):
             one_hot[oh_rows, oh_indexes] = 1
         return one_hot
 
+    def encode_single(self, input):
+        one_hot = np.zeros((len(self.unique_values)), dtype=np.int8)
+        one_hot[self.encoding[str(input)]] = 1
+        return one_hot
+
+    def encode_column(self, column):
+        one_hot = np.zeros((len(column), len(self.unique_values)), dtype=np.int8)
+        nan_indexes = set(np.where(column == "")[0].tolist())
+        oh_indexes = np.array([self.encoding[str(value)] for value in column if value is not None])
+        if len(nan_indexes) == 0:
+            oh_rows = np.arange(len(oh_indexes))
+        else:
+            oh_rows = np.asarray([i for i in range(len(column)) if i not in nan_indexes])
+        if len(oh_rows) > 0:
+            one_hot[oh_rows, oh_indexes] = 1
+        return one_hot
+
     def get_properties(self):
         return self.unique_values.tolist()
 
@@ -95,6 +112,9 @@ class OneHotDecoder(MultiColumnEncoder):
     def set_properties(self, properties):
         self.unique_values = np.asarray(properties)
 
+    def get_properties(self):
+        return self.unique_values
+
     def encode_case(self, case):
         """
         Decodes the case according to the encoder internal representation
@@ -114,4 +134,8 @@ class OneHotDecoder(MultiColumnEncoder):
         return result
 
     def encode_single_result(self, input, output, leftover):
-        return self.unique_values[np.argmax(output[self.column_ids[0]:self.column_ids[1] + 1])]
+        return self.unique_values[np.argmax(output[self.column_ids[0]:self.column_ids[1] + 1], axis=0)]
+
+    def encode_list(self, list):
+        return self.unique_values[np.argmax(list, axis=1)]
+

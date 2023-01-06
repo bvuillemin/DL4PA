@@ -1,6 +1,6 @@
 # Deep-Learning-Framework
 
-Version 1.0
+Version 1.5
 
 Main author: Benoit Vuillemin
 
