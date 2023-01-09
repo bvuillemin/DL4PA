@@ -1,4 +1,4 @@
-# Deep-Learning-Framework
+# DL4PA: A deep learning framework for process analysis
 
 Version 1.5
 
