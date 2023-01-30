@@ -1,5 +1,7 @@
 # DL4PA: A deep learning framework for process analysis
 
+[![DOI](https://zenodo.org/badge/497916795.svg)](https://zenodo.org/badge/latestdoi/497916795)
+
 Version 1.5
 
 Main author: Benoit Vuillemin
